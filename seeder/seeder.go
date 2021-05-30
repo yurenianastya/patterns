@@ -2,7 +2,6 @@ package seeder
 
 import (
 	"encoding/csv"
-	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -38,7 +37,7 @@ func RandStringRunes(n int) string {
 func PopulateUserCSV() {
 	csvFile, err := os.Create("./db_script/user.csv")
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	csvWriter := csv.NewWriter(csvFile)
 	for i:=1; i<1000; i++ {

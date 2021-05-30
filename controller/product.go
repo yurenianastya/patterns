@@ -28,7 +28,7 @@ func RetrieveProducts(db *gorm.DB) {
 func UpdateProduct(db *gorm.DB, id int, name string, price int, usernum int) {
 	newProduct := model.Product{Id: id, Name: name, Price: price, UserNumber: usernum}
 	product.Id = id
-	db.Model(&user).Updates(newProduct)
+	db.Model(&product).Updates(newProduct)
 	fmt.Println("User updated: ", newProduct)
 }
 
