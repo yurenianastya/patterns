@@ -30,8 +30,8 @@ func main() {
 
 		}
 	}(sqlDB)
-	seeder.PopulateUserCSV()
-	seeder.PopulateProductCSV()
+	seeder.PopulateCSV("user")
+	seeder.PopulateCSV("product")
 	controller.RetrieveUsers(database)
 	controller.RetrieveProducts(database)
 }

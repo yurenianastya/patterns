@@ -34,43 +34,36 @@ func RandStringRunes(n int) string {
 	return string(b)
 }
 
-func PopulateUserCSV() {
-	csvFile, err := os.Create("./db_script/user.csv")
-	if err != nil {
-		log.Fatal(err)
+func PopulateCSV(name string) {
+	var filepath string
+	switch name {
+	case "user":
+		filepath = "./db_script/user.csv"
+	case "product":
+		filepath = "./db_script/product.csv"
 	}
+	csvFile, err := os.Create(filepath)
 	csvWriter := csv.NewWriter(csvFile)
-	for i:=1; i<1000; i++ {
-		err := csvWriter.Write([]string{
-			strconv.Itoa(i),
-			GenerateField(names),
-			RandStringRunes(10)})
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
-	csvWriter.Flush()
-	err = csvFile.Close()
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func PopulateProductCSV() {
-	csvFile, err := os.Create("./db_script/product.csv")
-	if err != nil {
-		log.Fatal(err)
-	}
-	csvWriter := csv.NewWriter(csvFile)
-	for i:=1; i<1000; i++ {
-		err := csvWriter.Write([]string{
-			strconv.Itoa(i),
-			GenerateField(products),
-			strconv.Itoa(rand.Intn(500)),
-			strconv.Itoa(rand.Intn(1000)),
-		})
-		if err != nil {
-			log.Fatal(err)
+	for i:=1; i<=1000; i++ {
+		switch name {
+		case "user":
+			err := csvWriter.Write([]string{
+				strconv.Itoa(i),
+				GenerateField(names),
+				RandStringRunes(10)})
+			if err != nil {
+				log.Fatal(err)
+			}
+		case "product":
+			err := csvWriter.Write([]string{
+				strconv.Itoa(i),
+				GenerateField(products),
+				strconv.Itoa(rand.Intn(500)),
+				strconv.Itoa(rand.Intn(1000)),
+			})
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 	csvWriter.Flush()
